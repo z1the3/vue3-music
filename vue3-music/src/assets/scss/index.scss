@@ -1,0 +1,8 @@
+// @import "variable";
+@import "reset";
+@import "icon";
+@import "base";
+// @import "mixin"
+
+// 此处只引入带实体的样式，变量规则和函数等非实体文件给sass-loader
+// 使用即可，没必要在main.js中引入

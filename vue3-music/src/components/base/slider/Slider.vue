@@ -1,0 +1,84 @@
+<template>
+  <div class="slider" ref="rootRef">
+    <div class="slider_group" >
+      <div class="slider_page" v-for="item in sliders" :key="item.id">
+        <a :href="item.link">
+          <img :src="item.pic" />
+        </a>
+      </div>
+    </div>
+    <div class="dots_wrapper">
+      <span
+        class="dot"
+        v-for="(item, index) in sliders"
+        :key="item.id"
+        :class="{ active: currentPageIndex === index }"
+      >
+      </span>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { onMounted, ref } from "vue";
+import useSlider from "./use-slider";
+const props = defineProps({
+  sliders: {
+    type: Array,
+    default() {
+      return [];
+    },
+  },
+});
+const rootRef = ref(null);
+
+
+const { currentPageIndex } = useSlider(rootRef);
+  
+</script>
+
+<style lang="scss" scoped>
+
+  .slider {
+    min-height: 1px;
+    font-size: 0;
+    touch-action: pan-y;
+    .slider_group{
+      position:relative;
+      overflow:hidden;
+      white-space: nowrap;
+      .slider_page{
+        display: inline-block;
+        transform:translate3d(0,0,0);
+        backface-visibility:hidden;
+        a {
+          display: block;
+          width: 100%;
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+  .dots_wrapper{
+    position :absolute;
+    left: 50%;
+    bottom: 12px;
+    line-height: 12px;
+    transform: translateX(-50%);
+    .dot {
+      display: inline-block;
+      margin: 0 4px;
+      width: 8px;
+      height: 8px;
+      border-radius:  50%;
+      background: $color-text-l;
+      &.active{
+        width:20px;
+        border-radius: 5px;
+        background: $color-text-ll;
+      }
+    }
+  }
+</style>
